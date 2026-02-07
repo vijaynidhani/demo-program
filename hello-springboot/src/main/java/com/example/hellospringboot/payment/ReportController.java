@@ -1,6 +1,7 @@
 package com.example.hellospringboot.payment;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ public class ReportController {
     }
 
     @GetMapping(value = "/report", produces = MediaType.TEXT_HTML_VALUE)
+    @PreAuthorize("hasAnyRole('ADMIN', 'REPORTER')")
     public String report() {
         List<PaymentRecord> records = paymentService.getAllRecords();
         StringBuilder sb = new StringBuilder();
@@ -31,10 +33,10 @@ public class ReportController {
             sb.append("<td>").append(r.getId()).append("</td>");
             sb.append("<td>").append(fmt.format(r.getTimestamp())).append("</td>");
             sb.append("<td>").append(r.getIdempotencyKey() == null ? "" : r.getIdempotencyKey()).append("</td>");
-            sb.append("<td>").append(r.getPayment().getAmount()).append("</td>");
-            sb.append("<td>").append(r.getPayment().getToAccount()).append("</td>");
-            sb.append("<td>").append(r.getPayment().getFromAccount()).append("</td>");
-            sb.append("<td>").append(r.getPayment().getName()).append("</td>");
+            sb.append("<td>").append(r.getAmount()).append("</td>");
+            sb.append("<td>").append(r.getToAccount()).append("</td>");
+            sb.append("<td>").append(r.getFromAccount()).append("</td>");
+            sb.append("<td>").append(r.getName()).append("</td>");
             sb.append("</tr>");
         }
         sb.append("</tbody></table></body></html>");
