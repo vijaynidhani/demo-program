@@ -27,7 +27,19 @@ public class XmlLoggerStrategy implements LoggerStrategy {
             m.put("payload", payload);
             return xmlMapper.writeValueAsString(m);
         } catch (Exception e) {
-            return "<log><level>" + level + "</level><message>" + message + "</message></log>";
+            // Fallback with proper escaping
+            String escapedLevel = escapeXml(level);
+            String escapedMessage = escapeXml(message);
+            return "<log><level>" + escapedLevel + "</level><message>" + escapedMessage + "</message></log>";
         }
+    }
+    
+    private String escapeXml(String value) {
+        if (value == null) return "";
+        return value.replace("&", "&amp;")
+                    .replace("<", "&lt;")
+                    .replace(">", "&gt;")
+                    .replace("\"", "&quot;")
+                    .replace("'", "&apos;");
     }
 }

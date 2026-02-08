@@ -27,7 +27,19 @@ public class JsonLoggerStrategy implements LoggerStrategy {
             m.put("payload", payload);
             return mapper.writeValueAsString(m);
         } catch (Exception e) {
-            return "{\"level\":\"" + level + "\",\"message\":\"" + message + "\"}";
+            // Fallback with proper escaping
+            String escapedLevel = escapeJson(level);
+            String escapedMessage = escapeJson(message);
+            return "{\"level\":\"" + escapedLevel + "\",\"message\":\"" + escapedMessage + "\"}";
         }
+    }
+    
+    private String escapeJson(String value) {
+        if (value == null) return "";
+        return value.replace("\\", "\\\\")
+                    .replace("\"", "\\\"")
+                    .replace("\n", "\\n")
+                    .replace("\r", "\\r")
+                    .replace("\t", "\\t");
     }
 }

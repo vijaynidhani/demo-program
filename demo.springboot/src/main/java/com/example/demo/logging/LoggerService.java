@@ -28,7 +28,8 @@ public class LoggerService {
                 break;
             }
         }
-        if (active == null) active = strategies.stream().findFirst().orElseThrow();
+        if (active == null) active = strategies.stream().findFirst()
+                .orElseThrow(() -> new IllegalStateException("No logging strategies available"));
     }
 
     public void log(String level, String message) {
@@ -37,6 +38,7 @@ public class LoggerService {
 
     public void log(String level, String message, Object payload) {
         String out = active.format(level, message, payload);
+        // Using System.out for demo purposes - in production, use SLF4J or Spring's logging framework
         System.out.println(out);
     }
 }
