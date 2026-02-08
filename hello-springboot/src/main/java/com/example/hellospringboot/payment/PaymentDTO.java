@@ -7,6 +7,7 @@ public class PaymentDTO {
     private String toAccount;
     private String fromAccount;
     private String name;
+    private String description;
 
     public PaymentDTO() {}
 
@@ -15,6 +16,14 @@ public class PaymentDTO {
         this.toAccount = toAccount;
         this.fromAccount = fromAccount;
         this.name = name;
+    }
+
+    public PaymentDTO(BigDecimal amount, String toAccount, String fromAccount, String name, String description) {
+        this.amount = amount;
+        this.toAccount = toAccount;
+        this.fromAccount = fromAccount;
+        this.name = name;
+        this.description = description;
     }
 
     public BigDecimal getAmount() { return amount; }
@@ -28,4 +37,7 @@ public class PaymentDTO {
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 }

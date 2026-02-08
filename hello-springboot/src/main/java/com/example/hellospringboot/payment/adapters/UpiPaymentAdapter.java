@@ -20,7 +20,7 @@ public class UpiPaymentAdapter implements PaymentAdapter {
     @Override
     public PaymentDTO process(PaymentRequest req) {
         // Simulate UPI processing: generate transaction id
-        PaymentDTO dto = new PaymentDTO(req.getAmount(), req.getToAccount(), req.getFromAccount(), req.getName());
+        PaymentDTO dto = new PaymentDTO(req.getAmount(), req.getToAccount(), req.getFromAccount(), req.getName(), req.getDescription());
         // attach a pseudo transaction id in name (or add field in real impl)
         dto.setName(dto.getName() + " (upiTx:" + UUID.randomUUID().toString() + ")");
         return dto;

@@ -20,7 +20,7 @@ public class CardPaymentAdapter implements PaymentAdapter {
     @Override
     public PaymentDTO process(PaymentRequest req) {
         // Simulate card processing
-        PaymentDTO dto = new PaymentDTO(req.getAmount(), req.getToAccount(), req.getFromAccount(), req.getName());
+        PaymentDTO dto = new PaymentDTO(req.getAmount(), req.getToAccount(), req.getFromAccount(), req.getName(), req.getDescription());
         dto.setName(dto.getName() + " (cardTx:" + UUID.randomUUID().toString() + ")");
         return dto;
     }
