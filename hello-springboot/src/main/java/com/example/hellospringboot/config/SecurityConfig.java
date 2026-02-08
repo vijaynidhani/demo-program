@@ -38,6 +38,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                // Note: CSRF protection disabled for demo purposes
+                // In production, use proper CSRF token handling instead
                 .csrf(csrf -> csrf.ignoringRequestMatchers(
                         new AntPathRequestMatcher("/h2-console/**"),
                         new AntPathRequestMatcher("/payments/**")))

@@ -34,12 +34,13 @@ public class ChargeablePaymentProcessor extends PaymentProcessorTemplate {
             BigDecimal originalAmount = request.getAmount();
             BigDecimal chargedAmount = applyChargingStrategy(originalAmount, country);
             
-            if (chargedAmount.compareTo(originalAmount) != 0) {
-                loggerService.log("INFO", "Applied country-based charges: " + country + 
-                                         " Original: " + originalAmount + 
-                                         " Charged: " + chargedAmount, request);
-                request.setAmount(chargedAmount);
-            }
+            loggerService.log("INFO", "Applied country-based charges: " + country + 
+                                     " Original: " + originalAmount + 
+                                     " Charged: " + chargedAmount, request);
+            // Update request amount with charged amount for processing
+            // Note: This mutates the original request, but it's intentional as we want
+            // the payment to be processed with the final charged amount
+            request.setAmount(chargedAmount);
         }
     }
 
