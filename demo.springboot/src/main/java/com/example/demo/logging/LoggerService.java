@@ -22,9 +22,9 @@ public class LoggerService {
 
     @PostConstruct
     public void init() {
-        for (LoggerStrategy s : strategies) {
-            if (s.supports(format)) {
-                active = s;
+        for (LoggerStrategy strategy : strategies) {
+            if (strategy.supports(format)) {
+                active = strategy;
                 break;
             }
         }

@@ -20,12 +20,12 @@ public class XmlLoggerStrategy implements LoggerStrategy {
     @Override
     public String format(String level, String message, Object payload) {
         try {
-            Map<String, Object> m = new HashMap<>();
-            m.put("timestamp", Instant.now().toString());
-            m.put("level", level);
-            m.put("message", message);
-            m.put("payload", payload);
-            return xmlMapper.writeValueAsString(m);
+            Map<String, Object> logData = new HashMap<>();
+            logData.put("timestamp", Instant.now().toString());
+            logData.put("level", level);
+            logData.put("message", message);
+            logData.put("payload", payload);
+            return xmlMapper.writeValueAsString(logData);
         } catch (Exception e) {
             // Fallback with proper escaping
             String escapedLevel = escapeXml(level);

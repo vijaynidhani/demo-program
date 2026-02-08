@@ -16,7 +16,7 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String hello(@RequestParam(defaultValue = "world") String name) {
-        loggerService.log("INFO", "Hello endpoint called with name: " + name);
+        loggerService.log("INFO", "Hello endpoint called", name);
         return "Hello, " + name + "!";
     }
 }
