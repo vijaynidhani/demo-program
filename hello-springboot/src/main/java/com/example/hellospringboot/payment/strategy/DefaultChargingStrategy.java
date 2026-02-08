@@ -1,11 +1,13 @@
 package com.example.hellospringboot.payment.strategy;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Component
+@Order(100) // Lowest priority - fallback strategy
 public class DefaultChargingStrategy implements ChargingStrategy {
 
     private static final BigDecimal DEFAULT_RATE = new BigDecimal("0.05"); // 5% default charge

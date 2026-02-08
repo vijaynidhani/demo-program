@@ -1,11 +1,13 @@
 package com.example.hellospringboot.payment.strategy;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Component
+@Order(2)
 public class UsChargingStrategy implements ChargingStrategy {
 
     private static final BigDecimal TAX_RATE = new BigDecimal("0.08"); // 8% tax
